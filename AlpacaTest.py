@@ -21,7 +21,7 @@ print('The market is {}'.format('open.' if r["is_open"] else 'closed.'))
 
 if (r["is_open"]):
     # List of Stocks
-    symbols = ["AMZN"]
+    symbols = ["AMZN", "CSCO"]
 
     # Gather historical data and store in dictionary of dataframes
     data_dump = HistoricalData.hist_data(symbols, data_endpoint, headers, start="2022-07-01", timeframe="1Min")  

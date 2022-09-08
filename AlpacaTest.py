@@ -10,7 +10,7 @@ os.chdir("C:\\Users\\kyleh\\Documents\\Python\\Investing\\AlpacaTrading")
 
 # Load headers from key text file key.txt to log in and set alpaca site endpoint
 headers = json.loads(open("key.txt","r").read())
-endpoint = "https://api.alpaca.markets/v2"
+endpoint = "https://paper-api.alpaca.markets/v2"
 data_endpoint = "https://data.alpaca.markets/v2"
 
 # Check if the market is open now.
@@ -25,4 +25,5 @@ if (r["is_open"]):
 
     # Gather historical data and store in dictionary of dataframes
     data_dump = HistoricalData.hist_data(symbols, data_endpoint, headers, start="2022-07-01", timeframe="1Min")  
-
+r = Orders.market_order("AMZN", 1, endpoint, headers, side = "sell")
+print(r)

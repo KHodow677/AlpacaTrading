@@ -1,6 +1,6 @@
 import requests, pandas as pd
 
-def hist_data(symbols, headers, start="2021-01-01", timeframe="1Hour", limit=600, endpoint = "https://data.alpaca.markets/v2", end=""):
+def hist_data(symbols, endpoint, headers, start="2021-01-01", timeframe="1Hour", limit=600, end=""):
     """
     returns historical bar data for a string of symbols separated by comma
     symbols should be in a string format separated by comma e.g. symbols = "MSFT,AMZN,GOOG"
@@ -27,7 +27,7 @@ def hist_data(symbols, headers, start="2021-01-01", timeframe="1Hour", limit=600
         df_data.rename({"t":"time","o":"open","h":"high","l":"low","c":"close","v":"volume"},axis=1, inplace=True)
         df_data["time"] = pd.to_datetime(df_data["time"])
         df_data.set_index("time",inplace=True)
-        df_data.index = df_data.index.tz_convert("America/Texas/Austin")
+        df_data.index = df_data.index.tz_convert("US/Central")
         
         df_data_tickers[symbol] = df_data
     return df_data_tickers

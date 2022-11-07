@@ -47,3 +47,16 @@ def stop_limit_order(symbol, quanitity, stop_price, limit_price, endpoint, heade
               "time_in_force" : tif}
     r = requests.post(ord_url, headers = headers, json = params)
     return r.json()
+
+# Example call: stop_limit_order("AMZN", 1, 2, endpoint, headers, "sell") 
+def trail_stop_order(symbol, quantity, trail_pr, endpoint, headers, side="buy", tif="day"):
+    ord_url = endpoint + "/v2/orders"
+    params = {"symbol": symbol,
+              "qty": quantity,
+              "side" : side,
+              "type": "trailing_stop",
+              "trail_price" : trail_pr,
+              "time_in_force": tif}
+    r = requests.post(ord_url, headers=headers, json=params)
+    return r.json()
+

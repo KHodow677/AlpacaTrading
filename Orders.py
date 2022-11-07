@@ -60,3 +60,23 @@ def trail_stop_order(symbol, quantity, trail_pr, endpoint, headers, side="buy", 
     r = requests.post(ord_url, headers=headers, json=params)
     return r.json()
 
+# Example call: stop_limit_order("AMZN", 1, 2, endpoint, headers, "sell") 
+def bracket_order(symbol, quantity, tplp, slsp, sllp, endpoint, headers, side="buy", tif="day"):
+    ord_url = endpoint + "/v2/orders"
+    params = {
+              "symbol": symbol,
+              "qty": quantity,
+              "side" : side,
+              "type": "market",
+              "time_in_force": tif,
+              "order_class": "bracket",
+              "take_profit" : {
+                              "limit_price":tplp
+                              },
+              "stop_loss" : {
+                            "stop_price": slsp,
+                            "limit_price": sllp
+                            }
+              }
+    r = requests.post(ord_url, headers=headers, json=params)
+    return r.json()

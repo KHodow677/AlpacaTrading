@@ -1,5 +1,6 @@
 import requests, os, json, pandas as pd
 
+# Example call: order_df = order_list(endpoint, headers, "open")
 def order_list(endpoint, headers, status = "open", limit = 50):
     ord_list_url = endpoint + "/orders"
     params = {"status":status}
@@ -7,6 +8,13 @@ def order_list(endpoint, headers, status = "open", limit = 50):
     data = r.json()
     return pd.DataFrame(data)
 
+# Example call: Cancel specific order
+# order_df = order_list(endpoint, headers, "open")
+# order_cancel(endpoint, headers, order_df[order_df["symbol"]=="CSCO"]["id"].to_list()[0])
+
+# Example call: Cancel all open orders
+# order_df = order_list(endpoint, headers, "open")
+# order_cancel()
 def order_cancel(endpoint, headers, order_id=""):
     if len(order_id)>1:
         ord_cncl_url = endpoint + "/orders/{}".format(order_id)

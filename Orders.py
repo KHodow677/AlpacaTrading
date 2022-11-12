@@ -103,3 +103,11 @@ def bracket_order(symbol, quantity, tplp, slsp, sllp, endpoint, headers, side="b
               }
     r = requests.post(ord_url, headers=headers, json=params)
     return r.json()
+
+# Example Call: 
+# order_df = order_list()
+# order_replace(order_df[order_df["symbol"]=="FB"]["id"].to_list()[0], {"qty" : 10, "trail": 3}, endpoint, headers)
+def order_replace(order_id, params, endpoint, headers):
+    ord_replc_url = endpoint + "/v2/orders/{}".format(order_id)
+    r = requests.patch(ord_replc_url, headers=headers, json=params)
+    return r.json()
